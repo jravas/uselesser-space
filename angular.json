@@ -3,5 +3,36 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "uselesser": {
+      "projectType": "library",
+      "root": "projects/uselesser",
+      "sourceRoot": "projects/uselesser/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/uselesser/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/uselesser/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/uselesser/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/uselesser/src/test.ts",
+            "tsConfig": "projects/uselesser/tsconfig.spec.json",
+            "karmaConfig": "projects/uselesser/karma.conf.js"
+          }
+        }
+      }
+    }
   }
 }
