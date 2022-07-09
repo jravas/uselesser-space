@@ -19,3 +19,6 @@ jobs:
       - name: Run Tests
         run: |
           yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - name: Build Application
+        run: |
+          yarn build
