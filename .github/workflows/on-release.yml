@@ -18,7 +18,12 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build Application
+        run: |
+          yarn build
+
       - name: Publish Application
+        working-directory: ./dist
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
