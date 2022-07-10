@@ -1,8 +1,7 @@
-name: on-tag-push
+name: on-release
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -20,6 +19,6 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Publish Application
-      - run: yarn publish
+        run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
