@@ -1,21 +1,25 @@
-# name: on-pr
-# on:
-#   pull_request:
-#     types: [opened, reopened, synchronize]
-# jobs:
-#   test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Use Node.js 16.x
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 16.x
-#           cache: yarn
+name: on-tag-push
+on:
+  push:
+    tags:
+      - v*
 
-#       - name: Install dependencies
-#         run: yarn install --frozen-lockfile
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: "https://registry.npmjs.org"
+          cache: yarn
 
-#       - name: Build Application
-#         run: |
-#           yarn build
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Publish Application
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
