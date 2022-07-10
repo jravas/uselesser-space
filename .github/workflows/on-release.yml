@@ -22,15 +22,11 @@ jobs:
         run: |
           yarn build
 
-      - name: Build site assets
-        run: ls -la
-
       - name: Build site assets and
         working-directory: ./dist/uselesser
         run: ls -la
 
       - name: Publish Application
-        working-directory: ./dist/uselesser
-        run: yarn publish
+        run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
