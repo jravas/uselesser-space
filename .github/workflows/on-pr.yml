@@ -1,11 +1,9 @@
-name: on-tag-push
+name: on-pr
 on:
-  push:
-    tags:
-      - v*
-
+  pull_request:
+    types: [opened, reopened, synchronize]
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,13 +11,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          registry-url: "https://registry.npmjs.org"
           cache: yarn
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Publish Application
-      - run: yarn publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Tests
+        run: |
+          yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - name: Build Application
+        run: |
+          yarn build
