@@ -15,6 +15,6 @@ export class UselesserComponent {
   constructor(private uselessService: UselesserService) {}
 
   greet() {
-    this.greeting = this.uselessService.greeter('Bob');
+    this.greeting = this.uselessService.greeter('Pero');
   }
 }
